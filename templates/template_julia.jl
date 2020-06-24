@@ -1,5 +1,5 @@
 using DataLoad
-stocks_list=training_set(
+stocks_list=<function_to_load>
 
 # this takes ≈ 3.39 hours on hdd
 # this takes ≈ 3.23 hours on ssd
