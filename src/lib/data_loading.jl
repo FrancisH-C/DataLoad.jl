@@ -134,6 +134,14 @@ function custom_set(stocks::Array{String, 1})
     return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[:, stocks])
 end
 
+function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
+    return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[days, stocks])
+end
+
+function custom_set(days::Array{Int64, 1})
+    return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[days, :])
+end
+
 function Base.iterate(stocks_list::Stocks_list, state=(1,1); data_type="orders")
 	to_import = stocks_list.list
 	day_count=first(state)
