@@ -35,7 +35,7 @@ end
 
 
 function import_csv(path::String)
-    return string_to_int128(CSV.read(path))
+    return string_to_int128(CSV.read(path, types=Dict(5 => String)))
 end
 
 function export_csv(path::String, df)
