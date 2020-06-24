@@ -134,13 +134,24 @@ function custom_set(stocks::Array{String, 1})
     return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[:, stocks])
 end
 
-function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
-    return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[days, stocks])
+function custom_set(days::Array{Int64, 1})
+    stocks_df = CSV.read("$DATA_ROOT/lists/sp60_set.csv")
+    filtered_stocks_df = filter!(row -> false, copy(stocks_df))
+    for day in days
+        append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
+    end
+    return Stocks_list(filtered_stocks_df)
 end
 
-function custom_set(days::Array{Int64, 1})
-    return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[days, :])
+function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
+    stocks_df = CSV.read("$DATA_ROOT/lists/sp60_set.csv")[:, stocks]
+    filtered_stocks_df = filter!(row -> false, copy(stocks_df))
+    for day in days
+        append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
+    end
+    return Stocks_list(filtered_stocks_df)
 end
+
 
 function Base.iterate(stocks_list::Stocks_list, state=(1,1); data_type="orders")
 	to_import = stocks_list.list
@@ -180,13 +191,6 @@ end
 #end
 
 
-#list_data("sp60.txt")
-
-#data = import_data(["ABX", "BMO"], [20160104, 20160105], data_type="orders")
-#println(data)
-#display(first.(data, 5))
-
-
 
 
 #list_data("sp60.txt")
@@ -194,3 +198,18 @@ end
 #data = import_data(["ABX", "BMO"], [20160104, 20160105], data_type="orders")
 #println(data)
 #display(first.(data, 5))
+
+
+
+
+#list_data("sp60.txt")
+
+#data = import_data(["ABX", "BMO"], [20160104, 20160105], data_type="orders")
+#println(data)
+#display(first.(data, 5))
+
+
+stocks_list=custom_set(["BMO"], [20160105])
+for (stock, day) in stocks_list
+        data = import_data(stock, day, data_type="orders", verbose=true)
+end
