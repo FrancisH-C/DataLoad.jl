@@ -4,7 +4,7 @@ export list_data,
        import_data, 
        # Stock_list structure
        Stock_list, 
-       get_stock
+       get_stock,
        get_day,
        iterate,
        # Sets
