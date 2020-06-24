@@ -13,6 +13,7 @@ function int128_to_string(df::DataFrame)
 			end
 		end
         end
+    return df
 end
 
 
@@ -29,6 +30,7 @@ function string_to_int128(df::DataFrame)
 	    end
 	end
     end
+    return df
 end
 
 
