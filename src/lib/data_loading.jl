@@ -207,9 +207,3 @@ end
 #data = import_data(["ABX", "BMO"], [20160104, 20160105], data_type="orders")
 #println(data)
 #display(first.(data, 5))
-
-
-stocks_list=custom_set(["BMO"], [20160105])
-for (stock, day) in stocks_list
-        data = import_data(stock, day, data_type="orders", verbose=true)
-end
