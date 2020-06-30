@@ -8,7 +8,7 @@ export list_data,
        import_csv,
        export_csv,
        # DataIO
-       data_exporter
+       data_exporter,
        # import csv
        # Stock_list structure
        Stock_list, 
