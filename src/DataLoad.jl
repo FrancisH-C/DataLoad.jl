@@ -1,5 +1,7 @@
 module DataLoad
 
+using ParquetIO, DataFrames, CSV, ProgressMeter
+
 export list_data, 
        import_data, 
        # import csv
@@ -17,7 +19,8 @@ export list_data,
        sp60_set,
        custom_set
 
-include("lib/data_loading.jl")
-include("lib/import_csv.jl")
+include("lib/csvIO.jl")
+include("lib/import_data.jl")
+include("lib/export_data.jl")
 
 end # module
