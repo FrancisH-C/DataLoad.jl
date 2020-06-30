@@ -9,6 +9,7 @@ export list_data,
        export_csv,
        # DataIO
        data_exporter,
+       create_logs,
        # import csv
        # Stock_list structure
        Stock_list, 
@@ -29,5 +30,6 @@ const DATA_OUTPUT=ENV["DATA_OUTPUT"]
 include("lib/csvIO.jl")
 include("lib/import_data.jl")
 include("lib/export_data.jl")
+include("lib/log_data.jl")
 
 end # module
