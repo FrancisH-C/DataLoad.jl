@@ -1,6 +1,6 @@
 module DataLoad
 
-using ParquetIO, DataFrames, CSV, ProgressMeter, Logging,
+using ParquetIO, DataFrames, CSV, ProgressMeter, Logging
 
 export list_data, 
        import_data, 
