@@ -7,6 +7,8 @@ export list_data,
        # import csv
        import_csv,
        export_csv,
+       # DataIO
+       data_exporter
        # import csv
        # Stock_list structure
        Stock_list, 
@@ -17,7 +19,8 @@ export list_data,
        training_set,
        validation_set,
        sp60_set,
-       custom_set
+       custom_set,
+
 
 include("lib/csvIO.jl")
 include("lib/import_data.jl")
