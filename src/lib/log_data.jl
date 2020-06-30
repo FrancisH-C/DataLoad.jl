@@ -1,5 +1,5 @@
 function create_logs(relative_path::String)
-    log_directory = "$DATA_OUTPUT/logs/relative_path"
+    log_directory = "$DATA_OUTPUT/$relative_path/logs"
     run(`mkdir -p $log_directory`)
     f = function open_log(stock, day)
         log_file = "$log_directory/$stock$(day)"
