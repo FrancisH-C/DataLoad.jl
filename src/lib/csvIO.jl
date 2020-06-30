@@ -33,7 +33,7 @@ end
 
 
 function import_csv(path::String)
-    return string_to_int128(DataFrame!(CSV.file(path, types=Dict(5 => String))))
+    return string_to_int128(DataFrame!(CSV.File(path, types=Dict(5 => String))))
 end
 
 function export_csv(path::String, df)
