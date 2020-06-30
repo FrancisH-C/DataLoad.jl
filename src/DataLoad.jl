@@ -10,6 +10,8 @@ export list_data,
        # DataIO
        data_exporter,
        create_logs,
+       log_files,
+       output_data_files,
        # import csv
        # Stock_list structure
        Stock_list, 
@@ -31,5 +33,6 @@ include("lib/csvIO.jl")
 include("lib/import_data.jl")
 include("lib/export_data.jl")
 include("lib/log_data.jl")
+include("lib/import_post_processed.jl")
 
 end # module
