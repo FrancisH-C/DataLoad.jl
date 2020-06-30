@@ -1,5 +1,3 @@
-using CSV
-
 """
 int128 ↦ string
 """
@@ -35,9 +33,9 @@ end
 
 
 function import_csv(path::String)
-    return string_to_int128(CSV.read(path, types=Dict(5 => String)))
+    return string_to_int128(DataFrame!(CSV.file(path, types=Dict(5 => String))))
 end
 
 function export_csv(path::String, df)
-    return CSV.write(path, int128_to_string(df))
+    return CSV.write(path, int128_to_string(df)))
 end

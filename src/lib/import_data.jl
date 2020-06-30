@@ -1,5 +1,3 @@
-DATA_ROOT=ENV["DATA_ROOT"]
-
 function list_data(stocks::Array{String, 1}, days::Union{Array{Int64, 1}, Int64}; data_type="orders"::String)
 	listed_data=Array{String}(undef, length(days), length(stocks))
 	stocks = convert(Array{String}, stocks)

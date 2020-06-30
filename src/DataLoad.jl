@@ -22,6 +22,10 @@ export list_data,
        custom_set
 
 
+# variable to be defined
+const DATA_ROOT=ENV["DATA_ROOT"]
+const DATA_OUTPUT=ENV["DATA_OUTPUT"]
+
 include("lib/csvIO.jl")
 include("lib/import_data.jl")
 include("lib/export_data.jl")

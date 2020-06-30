@@ -1,5 +1,3 @@
-DATA_OUTPUT=ENV["DATA_OUTPUT"]
-
 function data_exporter(relative_path::String, to_df::Function=identity)
     directory = "$DATA_OUTPUT/$relative_path/"
     run(`mkdir -p $directory`)
