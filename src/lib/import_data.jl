@@ -103,35 +103,35 @@ get_day(s::Tuple{String,Int64}) = last(s)
 
 
 function Stocks_list(file::String)
-	return Stocks_list(CSV.read(file))
+	return Stocks_list(DataFrame!(CSV.file(file)))
 end
 
 function Stocks_list()
-	return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv"))
+	return Stocks_list(DataFrame!(CSV.file("$DATA_ROOT/lists/sp60_set.csv")))
 end
 
 function training_set()
-	return Stocks_list(CSV.read("$DATA_ROOT/lists/training_set.csv"))
+	return Stocks_list(DataFrame!(CSV.file("$DATA_ROOT/lists/training_set.csv")))
 end
 
 function validation_set()
-	return Stocks_list(CSV.read("$DATA_ROOT/lists/validation_set.csv"))
+	return Stocks_list(DataFrame!(CSV.file("$DATA_ROOT/lists/validation_set.csv")))
 end
 
 function test_set()
-	return Stocks_list(CSV.read("$DATA_ROOT/lists/test_set.csv"))
+	return Stocks_list(DataFrame!(CSV.file("$DATA_ROOT/lists/test_set.csv")))
 end
 
 function sp60_set()
-	return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv"))
+	return Stocks_list(DataFrame!(CSV.file("$DATA_ROOT/lists/sp60_set.csv")))
 end
 
 function custom_set(stocks::Array{String, 1})
-    return Stocks_list(CSV.read("$DATA_ROOT/lists/sp60_set.csv")[:, stocks])
+    return Stocks_list(DataFrame!(CSV.file("$DATA_ROOT/lists/sp60_set.csv")[:, stocks]))
 end
 
 function custom_set(days::Array{Int64, 1})
-    stocks_df = CSV.read("$DATA_ROOT/lists/sp60_set.csv")
+    stocks_df = DataFrame!(CSV.file("$DATA_ROOT/lists/sp60_set.csv"))
     filtered_stocks_df = filter!(row -> false, copy(stocks_df))
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
@@ -140,7 +140,7 @@ function custom_set(days::Array{Int64, 1})
 end
 
 function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
-    stocks_df = CSV.read("$DATA_ROOT/lists/sp60_set.csv")[:, stocks]
+    stocks_df = DataFrame!(CSV.file("$DATA_ROOT/lists/sp60_set.csv")[:, stocks])
     filtered_stocks_df = filter!(row -> false, copy(stocks_df))
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
