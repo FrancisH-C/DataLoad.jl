@@ -19,7 +19,7 @@ export list_data,
        training_set,
        validation_set,
        sp60_set,
-       custom_set,
+       custom_set
 
 
 include("lib/csvIO.jl")
