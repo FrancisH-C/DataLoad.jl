@@ -127,7 +127,7 @@ function sp60_set()
 end
 
 function custom_set(stocks::Array{String, 1})
-    return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")[:, stocks]))
+    return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))[:, stocks])
 end
 
 function custom_set(days::Array{Int64, 1})
@@ -140,7 +140,7 @@ function custom_set(days::Array{Int64, 1})
 end
 
 function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
-    stocks_df = DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")[:, stocks])
+    stocks_df = DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))[:, stocks]
     filtered_stocks_df = filter!(row -> false, copy(stocks_df))
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
