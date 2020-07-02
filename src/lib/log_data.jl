@@ -13,7 +13,7 @@ end
 
 function export_statistics(relative_file_name::String, df::DataFrame)
     filename = "$DATA_OUTPUT/$relative_file_name"
-    println(filename)
-    run(`mkdir -p $(dirname $filename)`)
+    directory=readlines(`dirname "$filename"`)[1]
+    run(`mkdir -p "$directory"`)
     export_pqt(filename, df)
 end
