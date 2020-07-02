@@ -12,7 +12,7 @@ function create_logs(relative_path::String)
 end
 
 function export_statistics(relative_file_name::String, df::DataFrame)
-    filename = "$DATA_OUTPUT/$relative_file_name/logs"
+    filename = "$DATA_OUTPUT/$relative_file_name"
     run(`mkdir -p $filename`)
     export_pqt(filename, df)
 end
