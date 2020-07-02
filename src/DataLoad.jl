@@ -12,6 +12,8 @@ export list_data,
        create_logs,
        log_files,
        output_data_files,
+       export_statistics,
+       statistics_files,
        # import csv
        # Stock_list structure
        Stock_list, 

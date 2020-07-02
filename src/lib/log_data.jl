@@ -10,3 +10,9 @@ function create_logs(relative_path::String)
         return io_log
     end
 end
+
+function export_statistics(df::DataFrame, relative_file_name::String)
+    filename = "$DATA_OUTPUT/$relative_file_name/logs"
+    run(`mkdir -p $log_directory`)
+    export_pqt(df, filename)
+end
