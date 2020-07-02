@@ -14,6 +14,6 @@ end
 function export_statistics(relative_file_name::String, df::DataFrame)
     filename = "$DATA_OUTPUT/$relative_file_name"
     println(filename)
-    run(`mkdir -p $filename`)
+    run(`mkdir -p $(dirname $filename)`)
     export_pqt(filename, df)
 end
