@@ -11,9 +11,7 @@ function create_logs(relative_path::String)
     end
 end
 
-function export_statistics(relative_file_name::String, df::DataFrame)
-    filename = "$DATA_OUTPUT/$relative_file_name"
-    directory=readlines(`dirname "$filename"`)[1]
-    run(`mkdir -p "$directory"`)
+function export_statistics(relative_path::String, df::DataFrame)
+    filename = "$DATA_OUTPUT/$relative_path/$stock$(day)"
     export_pqt(filename, df)
 end
