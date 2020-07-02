@@ -10,8 +10,3 @@ function create_logs(relative_path::String)
         return io_log
     end
 end
-
-function export_statistics(relative_path::String, df::DataFrame)
-    filename = "$DATA_OUTPUT/$relative_path/$stock$(day)"
-    export_pqt(filename, df)
-end

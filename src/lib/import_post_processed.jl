@@ -11,9 +11,3 @@ function output_data_files(relative_path::String)
     (root, dirs, files) = first(walkdir(directory))
     return joinpath.(root, files) # path to files
 end
-
-function statistics_files(relative_path::String)
-    directory =  "$DATA_OUTPUT/$relative_path"
-    (root, dirs, files) = first(walkdir(directory))
-    return joinpath.(root, files) # path to files
-end
