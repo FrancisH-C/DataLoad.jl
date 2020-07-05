@@ -6,5 +6,6 @@ stocks_list=<function_to_load>
 @time for (stock, day) in stocks_list
     data = import_data(stock, day, data_type="orders", verbose=true)
     display(last(data, 6))
+    println()
     println("Stop after one iteration, comment this line to continue iterating."); break
 end
