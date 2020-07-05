@@ -9,15 +9,14 @@ import pandas as pd
 
 stocks_list=<function_to_load>
 for (stock, day) in stocks_list
-	data = Pandas.DataFrame(import_data(stock, day, data_type="orders", verbose=true))
+    data = Pandas.DataFrame(import_data(stock, day, data_type="orders", verbose=true))
 
-	py"""	
-	data=$data #data for given stock and day
+    py"""	
+    data=$data #data for given stock and day
 
-	# Your python code here or import your script
-	import my_script
-	my_script.process(data)
-	"""
-
-	error("Stop after one iteration, comment this to continue iterating.")
+    # Your python code here or import your script
+    import my_script
+    my_script.process(data)
+    """
+    println("Stop after one iteration, comment this line to continue iterating."); break
 end
