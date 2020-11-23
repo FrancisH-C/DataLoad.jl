@@ -14,7 +14,7 @@ export list_data,
        output_data_files,
        # import csv
        # Stock_list structure
-       Stock_list, 
+       StocksList, 
        get_stock,
        get_day,
        iterate,

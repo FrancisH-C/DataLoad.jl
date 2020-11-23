@@ -72,6 +72,20 @@ function import_data(stock::Union{Symbol, String}, day::Int64; data_type="orders
 end
 
 
+function import_data(stocks::StocksList; data_type="orders"::String, verbose=false)
+    day = get_day(stocks[1])
+    stock = get_stock(stocks[1])
+    file="$DATA_ROOT/processed/processed_$data_type/$stock/$(day).pqt"
+    if verbose
+        println()
+        @info("Importing $file")
+        return import_pqt(file)
+    end
+    return import_pqt(file)
+end
+
+
+
 #data = list_data("BMO", 20160105, data_type="orders")
 #data = list_data(["BMO", "ABX"], 20160105, data_type="orders")
 #data = list_data("BMO", [20160104, 20160105], data_type="orders")
@@ -84,50 +98,48 @@ end
 
 
 
-struct Stocks_list <: AbstractArray{Int, 2}
+struct StocksList <: AbstractArray{Int, 2}
  	list::DataFrame
-	#nb_stock
-	#nb_days
 end
 
-Base.size(S::Stocks_list) = size(S.list)
+Base.size(S::StocksList) = size(S.list)
 
-Base.IndexStyle(S::Stocks_list)=IndexCartesian()
-Base.getindex(S::Stocks_list, I::Vararg{Int, 2}) = (names(S.list)[last(I)], getindex(S.list, first(I), last(I)))
-Base.setindex(S::Stocks_list, i::Int) = setindex(S.list)
+Base.IndexStyle(S::StocksList)=IndexCartesian()
+Base.getindex(S::StocksList, I::Vararg{Int, 2}) = (names(S.list)[last(I)], getindex(S.list, first(I), last(I)))
+Base.setindex(S::StocksList, i::Int) = setindex(S.list)
 
-Base.length(S::Stocks_list) = size(S.list, 1) * size(S.list, 2)
+Base.length(S::StocksList) = size(S.list, 1) * size(S.list, 2)
 
 get_stock(s::Tuple{String,Int64}) = first(s)
 get_day(s::Tuple{String,Int64}) = last(s)
 
 
-function Stocks_list(file::String)
-	return Stocks_list(DataFrame!(CSV.File(file)))
+function StocksList(file::String)
+	return StocksList(DataFrame!(CSV.File(file)))
 end
 
-function Stocks_list()
-	return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")))
+function StocksList()
+	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")))
 end
 
 function training_set()
-	return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/training_set.csv")))
+	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/training_set.csv")))
 end
 
 function validation_set()
-	return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/validation_set.csv")))
+	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/validation_set.csv")))
 end
 
 function test_set()
-	return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/test_set.csv")))
+	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/test_set.csv")))
 end
 
 function sp60_set()
-	return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")))
+	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")))
 end
 
 function custom_set(stocks::Array{String, 1})
-    return Stocks_list(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))[:, stocks])
+    return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))[:, stocks])
 end
 
 function custom_set(days::Array{Int64, 1})
@@ -136,7 +148,7 @@ function custom_set(days::Array{Int64, 1})
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
     end
-    return Stocks_list(filtered_stocks_df)
+    return StocksList(filtered_stocks_df)
 end
 
 function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
@@ -145,12 +157,12 @@ function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
     end
-    return Stocks_list(filtered_stocks_df)
+    return StocksList(filtered_stocks_df)
 end
 
 
-function Base.iterate(stocks_list::Stocks_list, state=(1,1); data_type="orders")
-	to_import = stocks_list.list
+function Base.iterate(stocks::StocksList, state=(1,1); data_type="orders")
+	to_import = stocks.list
 	day_count=first(state)
 	stock_count=last(state)
 	
@@ -166,23 +178,23 @@ function Base.iterate(stocks_list::Stocks_list, state=(1,1); data_type="orders")
 	end
 end
 
-#stocks_list=Stocks_list("tmp.csv")
+#stocks=StocksList("tmp.csv")
 #
-#display(length(stocks_list))
+#display(length(stocks))
 #
 ## nice for loop
-#stocks_list=sp60_set()
-##Threads.@threads for (stock, day) in stocks_list
-#for stock in stocks_list
+#stocks=sp60_set()
+##Threads.@threads for (stock, day) in stocks
+#for stock in stocks
 #    print(stock)
 #    error()
 #end
 
 
-#display(stocks_list.list)
-#display(stocks_list)
+#display(stocks.list)
+#display(stocks)
 #display(a)
-#@showprogress for (stock, day) in stocks_list
+#@showprogress for (stock, day) in stocks
 #        import_data(stock, day, data_type="orders", verbose=true)
 #end
 
