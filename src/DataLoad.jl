@@ -30,6 +30,7 @@ const DATA_ROOT=ENV["DATA_ROOT"]
 const DATA_OUTPUT=ENV["DATA_OUTPUT"]
 
 include("lib/csvIO.jl")
+include("lib/StockList")
 include("lib/import_data.jl")
 include("lib/export_data.jl")
 include("lib/log_data.jl")
