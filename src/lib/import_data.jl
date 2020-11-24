@@ -91,27 +91,27 @@ end
 
 
 function training_set()
-	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/training_set.csv")))
+	return StocksList(DataFrame(CSV.File("$DATA_ROOT/lists/training_set.csv"), copycols = false))
 end
 
 function validation_set()
-	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/validation_set.csv")))
+	return StocksList(DataFrame(CSV.File("$DATA_ROOT/lists/validation_set.csv"), copycols = false))
 end
 
 function test_set()
-	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/test_set.csv")))
+	return StocksList(DataFrame(CSV.File("$DATA_ROOT/lists/test_set.csv"), copycols = false))
 end
 
 function sp60_set()
-	return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv")))
+	return StocksList(DataFrame(CSV.File("$DATA_ROOT/lists/sp60_set.csv"), copycols = false))
 end
 
 function custom_set(stocks::Array{String, 1})
-    return StocksList(DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))[:, stocks])
+    return StocksList(DataFrame(CSV.File("$DATA_ROOT/lists/sp60_set.csv"), copycols = false)[:, stocks])
 end
 
 function custom_set(days::Array{Int64, 1})
-    stocks_df = DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))
+    stocks_df = DataFrame(CSV.File("$DATA_ROOT/lists/sp60_set.csv"), copycols = false)
     filtered_stocks_df = filter!(row -> false, copy(stocks_df))
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
@@ -120,7 +120,7 @@ function custom_set(days::Array{Int64, 1})
 end
 
 function custom_set(stocks::Array{String, 1}, days::Array{Int64, 1})
-    stocks_df = DataFrame!(CSV.File("$DATA_ROOT/lists/sp60_set.csv"))[:, stocks]
+    stocks_df = DataFrame(CSV.File("$DATA_ROOT/lists/sp60_set.csv"), copycols = false)[:, stocks]
     filtered_stocks_df = filter!(row -> false, copy(stocks_df))
     for day in days
         append!(filtered_stocks_df, stocks_df[day .== stocks_df[: ,1], :])
